@@ -14,24 +14,24 @@ export const ChatMessageList = () => {
     scrollBottom,
     endOfScroll,
     updateEndOfScroll,
-    getDistanceFromBottom
+    getDistanceFromBottom,
   } = useScroll(scrollRef);
   const [search, setSearch] = useState("");
   const debounceId = useRef(0);
 
-const handleSearch = () => {
-  setSearch(buscaMensagem);
-}
-
-useEffect(() => {
-  if (debounceId.current) {
-    clearTimeout(debounceId.current);
-  }
-  debounceId.current = window.setTimeout(handleSearch, 500);
-}, [buscaMensagem]);
+  const handleSearch = () => {
+    setSearch(buscaMensagem);
+  };
 
   useEffect(() => {
-    scrollRef.current = document.querySelector('#mensagens');
+    if (debounceId.current) {
+      clearTimeout(debounceId.current);
+    }
+    debounceId.current = window.setTimeout(handleSearch, 500);
+  }, [buscaMensagem]);
+
+  useEffect(() => {
+    scrollRef.current = document.querySelector("#mensagens");
     lerNovasMensagens();
   }, []);
 
@@ -43,7 +43,7 @@ useEffect(() => {
     const novaMensagem = mensagens[0];
     const distanceFromBottom = getDistanceFromBottom();
     const lerProximaMensagem = distanceFromBottom < TAMANHO_MEDIO_MENSAGEM_PX;
-    const minhaMensagem = novaMensagem?.autor.usuarioAtual
+    const minhaMensagem = novaMensagem?.autor.usuarioAtual;
 
     if (minhaMensagem || lerProximaMensagem) {
       lerNovasMensagens();
@@ -52,31 +52,34 @@ useEffect(() => {
 
   const lerNovasMensagens = () => {
     scrollBottom();
-    mensagens.forEach(mensagem => {
+    mensagens.forEach((mensagem) => {
       mensagem.lida = true;
     });
     setMensagens([...mensagens]);
   };
 
   return (
-    <div id="mensagens" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-purple scrollbar-thumb-rounded scrollbar-track-indigo-lighter scrollbar-w-2 scrolling-touch">
-      {
-        [...mensagens]
-        .filter(mensagem => mensagem.texto.match(new RegExp(search, 'i')))
-        .map(mensagem => (
-          mensagem.autor.usuarioAtual ?
-            <MyChatMessage mensagem={ mensagem } key={mensagem.keyId}/> :
-            <ChatMessage mensagem={ mensagem } key={mensagem.keyId}/>
-        ))
-      }
-      {
-        !endOfScroll ? (
-          <ChatMessageListBottomScrollButton
-            onClick={() => lerNovasMensagens()}
-            naoLidos={mensagens.filter(m => !m.lida).length}
-          />
-        ) : <></>
-      }
+    <div
+      id="mensagens"
+      className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-purple scrollbar-thumb-rounded scrollbar-track-indigo-lighter scrollbar-w-2 scrolling-touch"
+    >
+      {[...mensagens]
+        .filter((mensagem) => mensagem.texto.match(new RegExp(search, "i")))
+        .map((mensagem) =>
+          mensagem.autor.usuarioAtual ? (
+            <MyChatMessage mensagem={mensagem} key={mensagem.keyId} />
+          ) : (
+            <ChatMessage mensagem={mensagem} key={mensagem.keyId} />
+          )
+        )}
+      {!endOfScroll ? (
+        <ChatMessageListBottomScrollButton
+          onClick={() => lerNovasMensagens()}
+          naoLidos={mensagens.filter((m) => !m.lida).length}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
-}
+};

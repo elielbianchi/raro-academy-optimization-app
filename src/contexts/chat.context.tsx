@@ -8,7 +8,7 @@ const geraParticipante = (usuarioAtual = false): ParticipanteChat => ({
   ...geraPessoas(1)[0],
   ativo: true,
   usuarioAtual,
-})
+});
 
 export type ChatContextProps = {
   mensagens: Mensagem[];
@@ -18,12 +18,12 @@ export type ChatContextProps = {
   participantes: ParticipanteChat[];
   setParticipantes: (participantes: ParticipanteChat[]) => void;
   adicionaMensagem: (texto: string, participante: ParticipanteChat) => void;
-}
+};
 
 const ChatContext = createContext<ChatContextProps>({
   mensagens: [],
   setMensagens: (_: Mensagem[]) => {},
-  buscaMensagem: '',
+  buscaMensagem: "",
   setBuscaMensagem: (_: string) => {},
   participantes: [],
   setParticipantes: (_: ParticipanteChat[]) => {},
@@ -31,14 +31,14 @@ const ChatContext = createContext<ChatContextProps>({
 });
 
 export const ChatProvider: React.FC = ({ children }) => {
-  const [ mensagens, setMensagens ] = useState<Mensagem[]>([]);
-  const [ buscaMensagem, setBuscaMensagem ] = useState<string>('');
-  const [ participantes, setParticipantes ] = useState<ParticipanteChat[]>([]);
+  const [mensagens, setMensagens] = useState<Mensagem[]>([]);
+  const [buscaMensagem, setBuscaMensagem] = useState<string>("");
+  const [participantes, setParticipantes] = useState<ParticipanteChat[]>([]);
 
   useEffect(() => {
     const participantes = [
       geraParticipante(false), // gera dados do usuário convidado.
-      geraParticipante(true),  // gera dados do usuário atual.
+      geraParticipante(true), // gera dados do usuário atual.
     ];
 
     setParticipantes(participantes);
@@ -62,9 +62,9 @@ export const ChatProvider: React.FC = ({ children }) => {
 
     return () => {
       clearInterval(interval);
-    }
+    };
   }, []);
-  
+
   const adicionaMensagem = (texto: string, autor: ParticipanteChat) => {
     const mensagem: Mensagem = {
       id: faker.datatype.uuid(),
@@ -72,10 +72,10 @@ export const ChatProvider: React.FC = ({ children }) => {
       texto,
       autor,
       data: new Date(),
-      lida: false
-    }
+      lida: false,
+    };
 
-    setMensagens(mensagens => [ mensagem, ...mensagens ]);
+    setMensagens((mensagens) => [...mensagens, mensagem]);
   };
 
   return (
@@ -99,7 +99,9 @@ export const useChat = () => {
   const context = useContext(ChatContext);
 
   if (!context) {
-    throw new Error('Você somente pode usar este hook debaixo de um <AuthContextProvider>');
+    throw new Error(
+      "Você somente pode usar este hook debaixo de um <AuthContextProvider>"
+    );
   }
 
   return context;
