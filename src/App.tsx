@@ -1,7 +1,9 @@
-import { ListKeys } from "./pages/ListKeys";
+import Chat from "./pages/Chat";
+// import { ColorResponsive } from "./pages/ColorResponsive";
 
 export default function App() {
   return (
-    <ListKeys />
+    <Chat />
+    // <ColorResponsive />
   );
 }

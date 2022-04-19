@@ -1,46 +1,19 @@
-# Getting Started with Create React App
+# Otimization App - Raro Academy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto desenvolvido para praticar otimizações de aplicações React, parte da avaliação do curso da Raro Academy - semana 08.
 
-## Available Scripts
+## Otimizações chat
 
-In the project directory, you can run:
+* Utilização de key no map de renderização do component ChatMessageList
+* Utilização do Debounce no input de pesquisa das mensagens
+* Utilização do hook memo na renderização dos componentes MyChatMessage e ChatMessage
 
-### `npm start`
+## Otimização color responsive
+* Aplicação do debounce na rerenderização da página
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Como rodar e observações
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Baixar o projeto ou fazer o clone da pasta.
+- Executar no diretório do projeto os comandos _npm install_ e _npm start_.
+- O arquivo src/App.tsx vem com o componente Chat como componente principal. Para trocar para o ColorResponsive, deve-se editar este arquivo comentando o componente Chat e sua importação, e removendo as barras de comentário do componente ColorResponsive e sua importação.
+- Obs.: Ainda há espaço de melhorias, entre elas a sintaxe do arquivo src/index.tsx de acordo com a nova versão do React, assim removendo a duplicidade de renderização ao iniciar a aplicação.
