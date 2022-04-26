@@ -24,17 +24,17 @@ export const ColorResponsive = () => {
 
   useEffect(() => {
     const alteraCor = () => {
-      const width = window.innerWidth;
-      const index = breakpoints.findIndex((breakpoint) => width < breakpoint);
-      const breakpointIndex = index === -1 ? 0 : index;
-      setColor(colors[breakpointIndex]);
-    };
-
-    alteraCor();
-    window.addEventListener("resize", () => {
       clearTimeout(debounceId.current);
-      debounceId.current = window.setTimeout(alteraCor, 500);
-    });
+      debounceId.current = window.setTimeout(() => {
+        const width = window.innerWidth;
+        const index = breakpoints.findIndex((breakpoint) => width < breakpoint);
+        const breakpointIndex = index === -1 ? 0 : index;
+        setColor(colors[breakpointIndex]);
+      }, 500);
+    };
+    //créditos ao Paulo Pereira
+    
+    window.addEventListener("resize", alteraCor);
     return () => {
       window.removeEventListener("resize", alteraCor);
     };
